@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Home Page"),
+          title: Text("Competitions"),
         ),
         body: CompetitionsWidget(),
       ),
