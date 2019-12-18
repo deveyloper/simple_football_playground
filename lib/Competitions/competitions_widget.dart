@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as httpOperations;
+import 'package:simple_football_playground/LeagueTable/league_table.dart';
+import 'package:simple_football_playground/Utility/ApiUtility.dart';
 import 'package:simple_football_playground/models/Competition.dart';
 
 class CompetitionsWidget extends StatefulWidget {
@@ -12,11 +13,8 @@ class CompetitionsWidget extends StatefulWidget {
 class _CompetitionsWidgetState extends State<CompetitionsWidget> {
   Future<List<Competition>> _competitions() async {
     var url = 'http://api.football-data.org/v2/competitions?plan=TIER_ONE';
-    var headers = Map<String, String>();
-    headers.putIfAbsent(
-        "X-Auth-Token", () => "ebcd56f1c1f5407fa3ce9e56496d403a");
 
-    var responseData = await httpOperations.get(url, headers: headers);
+    var responseData = await ApiUtility().get(url);
     var dynamicData = json.decode(responseData.body);
     CompetitionsResult apiResult = CompetitionsResult.fromJson(dynamicData);
     return apiResult.competitions;
@@ -36,7 +34,11 @@ class _CompetitionsWidgetState extends State<CompetitionsWidget> {
                           child: ListTile(
                               title: Text('${s.area.name} -  ${s.name}')),
                           onPressed: () {
-                            print(s.id.toString());
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        LeagueTable(competition: s)));
                           },
                         ))
                     .toList());

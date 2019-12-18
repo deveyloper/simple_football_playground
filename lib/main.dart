@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:simple_football_playground/Competitions/competitions_widget.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  await GlobalConfiguration().loadFromAsset("keys");
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
