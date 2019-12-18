@@ -5,7 +5,7 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:simple_football_playground/Competitions/competitions_widget.dart';
 
 void main() async {
-  await GlobalConfiguration().loadFromAsset("keys");
+  await GlobalConfiguration().loadFromPath("config/keys.json");
   runApp(MyApp());
 }
 
