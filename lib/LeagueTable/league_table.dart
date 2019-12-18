@@ -29,13 +29,27 @@ class _LeagueTableState extends State<LeagueTable> {
 
   _LeagueTableState(this.competition);
 
-  Future<List<TableData>> test() async {
+  List<TableData> _tableData = [];
+  bool isLoading = false;
+
+  Future _tableDataList() async {
     var url =
         'http://api.football-data.org/v2/competitions/${competition.id}/standings';
-    var responseData = await ApiUtility().get(url);
-    var dynamicData = json.decode(responseData.body);
-    ApiResult apiResult = ApiResult.fromJson(dynamicData);
-    return apiResult.standings[0].table;
+    var result = await ApiUtility().get(url);
+    if (result.isSuccessful) {
+      var dynamicData = json.decode(result.data.body);
+      ApiResult apiResult = ApiResult.fromJson(dynamicData);
+      setState(() {
+        isLoading = false;
+        _tableData = apiResult.standings[0].table;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    _tableDataList();
+    super.initState();
   }
 
   @override
@@ -47,32 +61,44 @@ class _LeagueTableState extends State<LeagueTable> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        title: Text(competition.name),
-      ),
-      body: FutureBuilder(
-          future: test(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return Column(
+        appBar: AppBar(
+          title: Text('${competition.area.name} -  ${competition.name}'),
+          backgroundColor: Colors.blueGrey.shade800,
+        ),
+        body: Container(
+          color: Colors.blueGrey,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
               children: <Widget>[
                 Expanded(
                   flex: 1,
                   child: Row(children: [
                     Expanded(
                         flex: 5,
-                        child: Text("Team", style: TextStyle(fontSize: 15))),
+                        child: Text("Team",
+                            style: TextStyle(
+                                fontSize: 15, color: Colors.white70))),
                     Expanded(
                         flex: 1,
-                        child: Text("Won", style: TextStyle(fontSize: 15))),
+                        child: Text("Won",
+                            style: TextStyle(
+                                fontSize: 15, color: Colors.white70))),
                     Expanded(
                         flex: 1,
-                        child: Text("Draw", style: TextStyle(fontSize: 15))),
+                        child: Text("Draw",
+                            style: TextStyle(
+                                fontSize: 15, color: Colors.white70))),
                     Expanded(
                         flex: 1,
-                        child: Text("Lost", style: TextStyle(fontSize: 15))),
+                        child: Text("Lost",
+                            style: TextStyle(
+                                fontSize: 15, color: Colors.white70))),
                     Expanded(
                         flex: 1,
-                        child: Text("Points", style: TextStyle(fontSize: 15))),
+                        child: Text("Point",
+                            style: TextStyle(
+                                fontSize: 15, color: Colors.white70))),
                   ]),
                 ),
                 Expanded(
@@ -80,10 +106,9 @@ class _LeagueTableState extends State<LeagueTable> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Column(
-                      children: snapshot.connectionState ==
-                                  ConnectionState.done &&
-                              snapshot.data != null
-                          ? snapshot.data
+                      children: isLoading && _tableData.length < 1
+                          ? [CircularProgressIndicator()]
+                          : _tableData
                               .map<Row>((tableData) => Row(children: <Widget>[
                                     Expanded(
                                       flex: 5,
@@ -111,14 +136,13 @@ class _LeagueTableState extends State<LeagueTable> {
                                           style: TextStyle(fontSize: 15)),
                                     )
                                   ]))
-                              .toList()
-                          : [CircularProgressIndicator()],
+                              .toList(),
                     ),
                   ),
                 )
               ],
-            );
-          }),
-    );
+            ),
+          ),
+        ));
   }
 }

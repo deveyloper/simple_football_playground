@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as httpOperations;
+import 'package:simple_football_playground/Common/Result.dart';
 import 'package:simple_football_playground/LeagueTable/league_table.dart';
 import 'package:simple_football_playground/Utility/ApiUtility.dart';
 import 'package:simple_football_playground/models/Competition.dart';
@@ -11,25 +13,42 @@ class CompetitionsWidget extends StatefulWidget {
 }
 
 class _CompetitionsWidgetState extends State<CompetitionsWidget> {
-  Future<List<Competition>> _competitions() async {
+  List<Competition> _competitions = [];
+  bool isLoading = true;
+
+  Future _competitionList() async {
     var url = 'http://api.football-data.org/v2/competitions?plan=TIER_ONE';
 
-    var responseData = await ApiUtility().get(url);
-    var dynamicData = json.decode(responseData.body);
-    CompetitionsResult apiResult = CompetitionsResult.fromJson(dynamicData);
-    return apiResult.competitions;
+    Result<httpOperations.Response> result = await ApiUtility().get(url);
+    if (result.isSuccessful) {
+      var dynamicData = json.decode(result.data.body);
+      print(dynamicData);
+      CompetitionsResult apiResult = CompetitionsResult.fromJson(dynamicData);
+      setState(() {
+        isLoading = false;
+        _competitions = apiResult.competitions;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    _competitionList();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: FutureBuilder(
-        future: _competitions(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.data != null) {
-            return ListView(
-                children: snapshot.data
+        color: Colors.blueGrey,
+        child: ListView(
+            children: isLoading
+                ? [
+                    ListTile(
+                      title: Text("Loading!!"),
+                    )
+                  ]
+                : _competitions
                     .map<FlatButton>((s) => FlatButton(
                           child: ListTile(
                               title: Text('${s.area.name} -  ${s.name}')),
@@ -41,15 +60,7 @@ class _CompetitionsWidgetState extends State<CompetitionsWidget> {
                                         LeagueTable(competition: s)));
                           },
                         ))
-                    .toList());
-          } else {
-            return ListTile(
-              title: Text('Loading!!!'),
-            );
-          }
-        },
-      ),
-    );
+                    .toList()));
   }
 }
 

@@ -28,6 +28,7 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Competitions"),
+          backgroundColor: Colors.blueGrey.shade900,
         ),
         body: CompetitionsWidget(),
       ),
