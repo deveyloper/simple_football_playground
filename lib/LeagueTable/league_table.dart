@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:simple_football_playground/Components/expanded_table_cell.dart';
 import 'package:simple_football_playground/Utility/ApiUtility.dart';
 import 'package:simple_football_playground/models/ApiResult.dart';
 import 'package:simple_football_playground/models/Competition.dart';
@@ -32,18 +33,19 @@ class _LeagueTableState extends State<LeagueTable> {
   List<TableData> _tableData = [];
   bool isLoading = false;
 
-  Future _tableDataList() async {
+  Future _tableDataList() {
     var url =
         'http://api.football-data.org/v2/competitions/${competition.id}/standings';
-    var result = await ApiUtility().get(url);
-    if (result.isSuccessful) {
-      var dynamicData = json.decode(result.data.body);
-      ApiResult apiResult = ApiResult.fromJson(dynamicData);
-      setState(() {
-        isLoading = false;
-        _tableData = apiResult.standings[0].table;
-      });
-    }
+    var result = ApiUtility().get(url).then((result) {
+      if (result.isSuccessful) {
+        var dynamicData = json.decode(result.data.body);
+        ApiResult apiResult = ApiResult.fromJson(dynamicData);
+        setState(() {
+          isLoading = false;
+          _tableData = apiResult.standings[0].table;
+        });
+      }
+    });
   }
 
   @override
@@ -66,7 +68,20 @@ class _LeagueTableState extends State<LeagueTable> {
           backgroundColor: Colors.blueGrey.shade800,
         ),
         body: Container(
-          color: Colors.blueGrey,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            // Add one stop for each color. Stops should increase from 0 to 1
+            stops: [0.1, 0.5, 0.7, 0.9],
+            colors: [
+              // Colors are easy thanks to Flutter's Colors class.
+              Colors.indigo[800],
+              Colors.indigo[700],
+              Colors.indigo[600],
+              Colors.indigo[400],
+            ],
+          )),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -75,7 +90,12 @@ class _LeagueTableState extends State<LeagueTable> {
                   flex: 1,
                   child: Row(children: [
                     Expanded(
-                        flex: 5,
+                        flex: 1,
+                        child: Text("",
+                            style: TextStyle(
+                                fontSize: 15, color: Colors.white70))),
+                    Expanded(
+                        flex: 3,
                         child: Text("Team",
                             style: TextStyle(
                                 fontSize: 15, color: Colors.white70))),
@@ -111,35 +131,45 @@ class _LeagueTableState extends State<LeagueTable> {
                           : _tableData
                               .map<Row>((tableData) => Row(children: <Widget>[
                                     Expanded(
-                                      flex: 5,
-                                      child: Text(tableData.team.name,
-                                          style: TextStyle(fontSize: 15)),
-                                    ),
-                                    Expanded(
                                       flex: 1,
-                                      child: Text(tableData.won.toString(),
-                                          style: TextStyle(fontSize: 15)),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: (tableData.position / 5)
+                                                      .floor() ==
+                                                  0
+                                              ? Colors.green
+                                              : Colors.redAccent,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                              tableData.position.toString(),
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.white70)),
+                                        ),
+                                      ),
                                     ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Text(tableData.draw.toString(),
-                                          style: TextStyle(fontSize: 15)),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Text(tableData.lost.toString(),
-                                          style: TextStyle(fontSize: 15)),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Text(tableData.points.toString(),
-                                          style: TextStyle(fontSize: 15)),
-                                    )
+                                    ExpandedTableCell(
+                                        flex: 3,
+                                        innerText: tableData.team.name),
+                                    ExpandedTableCell(
+                                        flex: 1,
+                                        innerText: tableData.won.toString()),
+                                    ExpandedTableCell(
+                                        flex: 1,
+                                        innerText: tableData.draw.toString()),
+                                    ExpandedTableCell(
+                                        flex: 1,
+                                        innerText: tableData.lost.toString()),
+                                    ExpandedTableCell(
+                                        flex: 1,
+                                        innerText: tableData.points.toString())
                                   ]))
                               .toList(),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

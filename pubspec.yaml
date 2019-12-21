@@ -42,8 +42,19 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  fonts:
+    - family: LemonJuice
+      fonts:
+        - asset: assets/fonts/LemonJuice.otf
+    - family: CourierPrime
+      fonts:
+        - asset: assets/fonts/CourierPrime-Regular.ttf
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Regular.ttf
   assets:
     - config/
+    - assets/images/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

@@ -10,6 +10,7 @@ class ApiUtility {
 
     try {
       var response = await httpOperations.get(url, headers: headers);
+      print(response.body);
       return Result<httpOperations.Response>.asSuccess(response);
     } catch (error) {
       return Result<httpOperations.Response>.asError(error);

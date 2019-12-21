@@ -22,7 +22,6 @@ class _CompetitionsWidgetState extends State<CompetitionsWidget> {
     Result<httpOperations.Response> result = await ApiUtility().get(url);
     if (result.isSuccessful) {
       var dynamicData = json.decode(result.data.body);
-      print(dynamicData);
       CompetitionsResult apiResult = CompetitionsResult.fromJson(dynamicData);
       setState(() {
         isLoading = false;
@@ -40,7 +39,20 @@ class _CompetitionsWidgetState extends State<CompetitionsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.blueGrey,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          // Add one stop for each color. Stops should increase from 0 to 1
+          stops: [0.1, 0.5, 0.7, 0.9],
+          colors: [
+            // Colors are easy thanks to Flutter's Colors class.
+            Colors.indigo[800],
+            Colors.indigo[700],
+            Colors.indigo[600],
+            Colors.indigo[400],
+          ],
+        )),
         child: ListView(
             children: isLoading
                 ? [
@@ -51,7 +63,13 @@ class _CompetitionsWidgetState extends State<CompetitionsWidget> {
                 : _competitions
                     .map<FlatButton>((s) => FlatButton(
                           child: ListTile(
-                              title: Text('${s.area.name} -  ${s.name}')),
+                              title: Text(
+                            '${s.area.name} -  ${s.name}',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900),
+                          )),
                           onPressed: () {
                             Navigator.push(
                                 context,
