@@ -5,7 +5,6 @@ class MoneyTransferWidget extends StatelessWidget {
   final String from;
   final String fromTitle;
   final String to;
-  final String amount;
   final String amountSign;
   final bool sendStatus;
   String _fromShortName;
@@ -14,7 +13,6 @@ class MoneyTransferWidget extends StatelessWidget {
       {this.from,
       this.fromTitle,
       this.to,
-      this.amount,
       this.amountSign,
       this.sendStatus}) {
     String str = '';

@@ -204,10 +204,9 @@ class BankPage extends StatelessWidget {
                 ],
               ),
               MoneyTransferWidget(
-                from: 'Gönderen Ad Soyad',
+                from: 'Ad Soyad',
                 fromTitle: 'Developer',
-                to: 'Alıcı Gönderen Ad Soyad',
-                amount: '1000',
+                to: 'Alıcı Ad Soyad',
                 amountSign: 'TRY',
                 sendStatus: true,
               ),
