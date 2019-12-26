@@ -18,7 +18,39 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: 'OpenSans'),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: HomePage(),
+      home: HomePage2(),
+    );
+  }
+}
+
+class HomePage2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: PageView(
+        children: <Widget>[
+          Container(
+              color: Colors.yellow,
+              alignment: Alignment.center,
+              child: Text(
+                '1',
+                style: TextStyle(fontSize: 30),
+              )),
+          Container(
+              alignment: Alignment.center,
+              child: Text(
+                '2',
+                style: TextStyle(fontSize: 30),
+              )),
+          Container(
+              alignment: Alignment.center,
+              child: Text(
+                '3',
+                style: TextStyle(fontSize: 30),
+              ))
+        ],
+        scrollDirection: Axis.horizontal,
+      ),
     );
   }
 }
@@ -29,7 +61,7 @@ class HomePage extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       body: SingleChildScrollView(
-        child: Column(
+        child: PageView(
           children: [
             IconCard(
               color: Colors.orange,

@@ -51,17 +51,22 @@ class IconCard extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                            child: Text(
-                              'Read More',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.white),
+                          GestureDetector(
+                            onTap: () {
+                              print("onPressed");
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 20),
+                              child: Text(
+                                'Read More',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Colors.black54),
                             ),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.black54),
                           ),
                         ],
                       ),
