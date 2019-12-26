@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:simple_football_playground/pages/bank_page.dart';
-import 'package:simple_football_playground/pages/developer_cards.dart';
 import 'package:simple_football_playground/pages/login_page.dart';
 
 import 'Competitions/competitions_widget.dart';
@@ -28,10 +27,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   void bottomTapped(int index) {
+    int distance = (index - bottomTapIndex).abs();
     setState(() {
       bottomTapIndex = index;
       controller.animateToPage(index,
-          duration: Duration(milliseconds: 500), curve: Curves.ease);
+          duration: Duration(milliseconds: 500 * distance), curve: Curves.ease);
     });
   }
 
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
       onPageChanged: (index) {
         pageChanged(index);
       },
-      scrollDirection: Axis.horizontal,
+      scrollDirection: Axis.vertical,
       controller: controller,
     );
   }
@@ -88,29 +88,30 @@ class _MyAppState extends State<MyApp> {
   BottomNavigationBar _getBottomNavigationBar() {
     return BottomNavigationBar(
         backgroundColor: Color(0xFF1B3F22),
-        selectedItemColor: Colors.yellow,
-        selectedLabelStyle: TextStyle(color: Colors.white, fontSize: 20),
+        selectedLabelStyle: TextStyle(color: Colors.black, fontSize: 22),
+        selectedIconTheme: IconThemeData(color: Colors.yellow, size: 35),
+        showSelectedLabels: true,
         onTap: (index) {
           bottomTapped(index);
         },
         currentIndex: bottomTapIndex,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.white38),
+            icon: Icon(Icons.person, color: Colors.white38, size: 25),
             title: Text(
               'Login',
               style: TextStyle(color: Colors.white38, fontSize: 15),
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.attach_money, color: Colors.white38),
+            icon: Icon(Icons.attach_money, color: Colors.white38, size: 25),
             title: Text(
               'Home',
               style: TextStyle(color: Colors.white38, fontSize: 15),
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.table_chart, color: Colors.white38),
+            icon: Icon(Icons.table_chart, color: Colors.white38, size: 25),
             title: Text(
               'League',
               style: TextStyle(color: Colors.white38, fontSize: 15),
