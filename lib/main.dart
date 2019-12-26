@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
             backgroundColor: Color(0xFF12B59A),
             leading: Icon(Icons.view_headline),
             title: Text(
-              'Customer',
+              'Simple Football',
               style: TextStyle(fontSize: 25, color: Colors.white),
             ),
             actions: [
@@ -68,8 +68,8 @@ class _MyAppState extends State<MyApp> {
               CompetitionsWidget(),
               Container(color: Colors.blue)
             ],
-            onPageChanged: (page) {
-              print(page);
+            onPageChanged: (index) {
+              pageChanged(index);
             },
             scrollDirection: Axis.horizontal,
             controller: controller,
