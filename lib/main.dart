@@ -75,6 +75,7 @@ class _MyAppState extends State<MyApp> {
             controller: controller,
           ),
           bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor: Colors.teal[500],
             onTap: (index) {
               bottomTapped(index);
             },
