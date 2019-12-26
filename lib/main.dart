@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
       home: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Color(0xFF12B59A),
+            backgroundColor: Color(0xCC1B3F22),
             leading: Icon(Icons.view_headline),
             title: Text(
               'Simple Football',
@@ -66,7 +66,94 @@ class _MyAppState extends State<MyApp> {
             children: <Widget>[
               BankPage(),
               CompetitionsWidget(),
-              Container(color: Colors.blue)
+              Container(
+                child: Stack(
+                  children: <Widget>[
+                    SizedBox(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: Image.network(
+                        'https://images.unsplash.com/photo-1569243963117-78bb6e7ff948?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundImage: NetworkImage(
+                              'https://images.unsplash.com/photo-1568274602483-355d7fbba69c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjQzMzEwfQ&auto=format&fit=crop&w=1955&q=80'),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextField(
+                          enabled: false,
+                          decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.mail,
+                                color: Colors.white70,
+                              ),
+                              filled: true,
+                              fillColor: Colors.transparent,
+                              hintText: 'E-Mail',
+                              hintStyle: TextStyle(color: Colors.white),
+                              disabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.white, width: 1),
+                                borderRadius: BorderRadius.circular(50),
+                              )),
+                          autofocus: false,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextField(
+                          enabled: false,
+                          decoration: InputDecoration(
+                              prefixIcon:
+                                  Icon(Icons.vpn_key, color: Colors.white70),
+                              filled: true,
+                              fillColor: Colors.transparent,
+                              hintText: 'Password',
+                              hintStyle: TextStyle(color: Colors.white),
+                              disabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.white, width: 1),
+                                borderRadius: BorderRadius.circular(50),
+                              )),
+                          autofocus: false,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: MaterialButton(
+                              padding:
+                                  EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                              onPressed: () {},
+                              child: Text(
+                                "LOG IN",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              )
             ],
             onPageChanged: (index) {
               pageChanged(index);
@@ -75,23 +162,34 @@ class _MyAppState extends State<MyApp> {
             controller: controller,
           ),
           bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.teal[500],
+            backgroundColor: Color(0xFF1B3F22),
+            selectedItemColor: Colors.yellow,
+            selectedLabelStyle: TextStyle(color: Colors.white, fontSize:20),
             onTap: (index) {
               bottomTapped(index);
             },
             currentIndex: bottomTapIndex,
             items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text('Home'),
+                icon: Icon(Icons.attach_money, color: Colors.white38),
+                title: Text(
+                  'Home',
+                  style: TextStyle(color: Colors.white38, fontSize: 15),
+                ),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                title: Text('Search'),
+                icon: Icon(Icons.table_chart, color: Colors.white38),
+                title: Text(
+                  'League',
+                  style: TextStyle(color: Colors.white38, fontSize: 15),
+                ),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_today),
-                title: Text('Calendar'),
+                icon: Icon(Icons.person, color: Colors.white38),
+                title: Text(
+                  'Login',
+                  style: TextStyle(color: Colors.white38, fontSize: 15),
+                ),
               ),
             ],
           ),
