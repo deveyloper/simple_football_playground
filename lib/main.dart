@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:simple_football_playground/Components/icon_card.dart';
+import 'package:simple_football_playground/pages/bank_page.dart';
+import 'package:simple_football_playground/pages/developer_cards.dart';
+
+import 'Competitions/competitions_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,104 +13,89 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  PageController controller = PageController(initialPage: 0, keepPage: true);
+  int bottomTapIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void bottomTapped(int index) {
+    setState(() {
+      bottomTapIndex = index;
+      controller.animateToPage(index,
+          duration: Duration(milliseconds: 500), curve: Curves.ease);
+    });
+  }
+
+  void pageChanged(int index) {
+    setState(() {
+      bottomTapIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: 'OpenSans'),
+      theme: ThemeData(fontFamily: 'Roboto'),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: HomePage2(),
-    );
-  }
-}
-
-class HomePage2 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-        children: <Widget>[
-          Container(
-              color: Colors.yellow,
-              alignment: Alignment.center,
-              child: Text(
-                '1',
-                style: TextStyle(fontSize: 30),
-              )),
-          Container(
-              alignment: Alignment.center,
-              child: Text(
-                '2',
-                style: TextStyle(fontSize: 30),
-              )),
-          Container(
-              alignment: Alignment.center,
-              child: Text(
-                '3',
-                style: TextStyle(fontSize: 30),
-              ))
-        ],
-        scrollDirection: Axis.horizontal,
-      ),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
+      home: SafeArea(
         child: Scaffold(
-      body: SingleChildScrollView(
-        child: PageView(
-          children: [
-            IconCard(
-              color: Colors.orange,
-              iconData: Icons.android,
-              title: 'Fatih',
-              subTitle: 'Developer',
-              rate: 5,
+          appBar: AppBar(
+            backgroundColor: Color(0xFF12B59A),
+            leading: Icon(Icons.view_headline),
+            title: Text(
+              'Customer',
+              style: TextStyle(fontSize: 25, color: Colors.white),
             ),
-            IconCard(
-              color: Colors.green,
-              iconData: Icons.android,
-              title: 'Fatih Berksöz',
-              subTitle: 'Developer',
-              rate: 5,
-            ),
-            IconCard(
-              color: Colors.redAccent,
-              iconData: Icons.add_to_home_screen,
-              title: 'Fatih',
-              subTitle: 'Developer',
-              rate: 3,
-            ),
-            IconCard(
-              color: Colors.orange,
-              iconData: Icons.android,
-              title: 'Fatih',
-              subTitle: 'Developer',
-              rate: 5,
-            ),
-            IconCard(
-              color: Colors.green,
-              iconData: Icons.android,
-              title: 'Fatih Berksöz',
-              subTitle: 'Developer',
-              rate: 3,
-            ),
-            IconCard(
-              color: Colors.redAccent,
-              iconData: Icons.add_to_home_screen,
-              title: 'Fatih',
-              subTitle: 'Developer',
-              rate: 3,
-            )
-          ],
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: Icon(Icons.alarm),
+              ),
+            ],
+          ),
+          body: PageView(
+            children: <Widget>[
+              BankPage(),
+              CompetitionsWidget(),
+              Container(color: Colors.blue)
+            ],
+            onPageChanged: (page) {
+              print(page);
+            },
+            scrollDirection: Axis.horizontal,
+            controller: controller,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            onTap: (index) {
+              bottomTapped(index);
+            },
+            currentIndex: bottomTapIndex,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                title: Text('Home'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                title: Text('Search'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_today),
+                title: Text('Calendar'),
+              ),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }

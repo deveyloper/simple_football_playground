@@ -56,7 +56,7 @@ class MoneyTransferWidget extends StatelessWidget {
                   style: TextStyle(color: Colors.black, fontSize: 17),
                 ),
                 Text(
-                  'Ziraat Bankası',
+                  'X Bankası',
                   style: TextStyle(color: Colors.black, fontSize: 13),
                 ),
                 Text(
@@ -96,7 +96,7 @@ class MoneyTransferWidget extends StatelessWidget {
                   style: TextStyle(color: Colors.black, fontSize: 17),
                 ),
                 Text(
-                  'Enpara',
+                  'Y Bankası',
                   style: TextStyle(color: Colors.black, fontSize: 13),
                 ),
                 RichText(
