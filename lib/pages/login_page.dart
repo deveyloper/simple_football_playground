@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({
-    Key key,
-  }) : super(key: key);
+  final Function onPressedCallBack;
+
+  LoginPage({this.onPressedCallBack});
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +42,7 @@ class LoginPage extends StatelessWidget {
                     hintText: 'E-Mail',
                     hintStyle: TextStyle(color: Colors.white),
                     disabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.white, width: 1),
+                      borderSide: BorderSide(color: Colors.white, width: 1),
                       borderRadius: BorderRadius.circular(50),
                     )),
                 autofocus: false,
@@ -54,15 +53,13 @@ class LoginPage extends StatelessWidget {
               TextField(
                 enabled: false,
                 decoration: InputDecoration(
-                    prefixIcon:
-                        Icon(Icons.vpn_key, color: Colors.white70),
+                    prefixIcon: Icon(Icons.vpn_key, color: Colors.white70),
                     filled: true,
                     fillColor: Colors.transparent,
                     hintText: 'Password',
                     hintStyle: TextStyle(color: Colors.white),
                     disabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.white, width: 1),
+                      borderSide: BorderSide(color: Colors.white, width: 1),
                       borderRadius: BorderRadius.circular(50),
                     )),
                 autofocus: false,
@@ -78,14 +75,12 @@ class LoginPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: MaterialButton(
-                    padding:
-                        EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                    onPressed: () {},
+                    padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                    onPressed: () {onPressedCallBack();},
                     child: Text(
                       "LOG IN",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
                 ),

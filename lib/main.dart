@@ -41,6 +41,10 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void loginPressed(){
+    bottomTapped(1);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -73,7 +77,7 @@ class _MyAppState extends State<MyApp> {
   PageView _getPageView() {
     return PageView(
       children: <Widget>[
-        LoginPage(),
+        LoginPage(onPressedCallBack: loginPressed,),
         BankPage(),
         CompetitionsWidget(),
       ],
