@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ExpandedTableCell extends StatelessWidget {
-  int flex;
-  String innerText;
+  final int flex;
+  final String innerText;
 
   ExpandedTableCell({this.flex, this.innerText});
 

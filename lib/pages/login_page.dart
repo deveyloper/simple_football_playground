@@ -13,8 +13,8 @@ class LoginPage extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             height: double.infinity,
-            child: Image.network(
-              'https://images.unsplash.com/photo-1569243963117-78bb6e7ff948?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
+            child: Image.asset(
+              'assets/images/stadium.jpg',
               fit: BoxFit.fill,
             ),
           ),
@@ -22,11 +22,6 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(
-                    'https://images.unsplash.com/photo-1568274602483-355d7fbba69c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjQzMzEwfQ&auto=format&fit=crop&w=1955&q=80'),
-              ),
               SizedBox(
                 height: 20,
               ),

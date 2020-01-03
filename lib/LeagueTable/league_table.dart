@@ -33,10 +33,10 @@ class _LeagueTableState extends State<LeagueTable> {
   List<TableData> _tableData = [];
   bool isLoading = false;
 
-  Future _tableDataList() {
+  _tableDataList() {
     var url =
         'http://api.football-data.org/v2/competitions/${competition.id}/standings';
-    var result = ApiUtility().get(url).then((result) {
+    ApiUtility().get(url).then((result) {
       if (result.isSuccessful) {
         var dynamicData = json.decode(result.data.body);
         ApiResult apiResult = ApiResult.fromJson(dynamicData);

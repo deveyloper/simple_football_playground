@@ -7,24 +7,18 @@ class MoneyTransferWidget extends StatelessWidget {
   final String to;
   final String amountSign;
   final bool sendStatus;
-  String _fromShortName;
 
   MoneyTransferWidget(
-      {this.from,
-      this.fromTitle,
-      this.to,
-      this.amountSign,
-      this.sendStatus}) {
+      {this.from, this.fromTitle, this.to, this.amountSign, this.sendStatus});
+
+  @override
+  Widget build(BuildContext context) {
     String str = '';
     for (final names in this.from.split(' ')) {
       str = str + names[0].toUpperCase();
     }
 
-    this._fromShortName = str;
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    String _fromShortName = str;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Row(

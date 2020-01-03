@@ -17,6 +17,8 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  cloud_firestore:
+  rflutter_alert: ^1.0.3
   flutter:
     sdk: flutter
 
@@ -43,6 +45,12 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   fonts:
+    - family: 8bitwonder
+      fonts:
+        - asset: assets/fonts/8bitwonder.ttf
+    - family: vcrmono
+      fonts:
+        - asset: assets/fonts/vcrmono.ttf          
     - family: LemonJuice
       fonts:
         - asset: assets/fonts/LemonJuice.otf
