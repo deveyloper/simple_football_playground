@@ -1,4 +1,4 @@
-package com.conqsolid.simple_football_playground
+package com.fatihberksoz.i_am_rich
 
 import android.os.Bundle
 
